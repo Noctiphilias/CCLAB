@@ -3,21 +3,22 @@ let x = 500;
 let y = 500;
 let xspeed = 2;
 let yspeed = 2;
-let csize = 100;
+let csize = 150;
 let opacity = 255;
 let r = 0;
 let g = 0;
 let b = 0;
 let easing = 0.05;
-let cnv, d, v;
 function setup() {
   let canvas = createCanvas(400, 400);
   canvas.parent("p5-canvas");
 }
 
 function draw() {
-    mousePressed()
     background(255,15);
+    droopy();
+}
+function droopy(){  
   let targetX = mouseX;
   let dx = targetX - x;
   let targetY = mouseY;
@@ -60,7 +61,7 @@ function draw() {
     yspeed = yspeed / 5;
   }
   //properties of circle
-  if (csize > 100) {
+  if (csize > 150) {
     csize = -csize;
     r = random(255);
     g = random(255);
@@ -74,12 +75,5 @@ function draw() {
   if (mouseIsPressed){
       x += dx * easing;
       y += dy * easing;
-      csize = csize + 80
-  }
-
-  //console.log(x + " " + y)
-
-}
-function mousePressed(){
-  fill(0)
-}
+      csize = csize + 10
+  }}
