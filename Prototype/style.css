@@ -1,0 +1,55 @@
+body{
+    background-color: aliceblue;
+}
+.content{
+text-align: center;
+}
+.header{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.subheader{
+    font-weight: lighter;
+    font-size:medium;
+}
+
+.left{
+    float: left;
+    width: 50%;
+    }
+.flex-container{
+    height: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+}
+
+.box{
+    height: 100px;
+    width: 150px;
+    border: 1px;
+    border-style: solid;
+    padding: 75%;
+    margin: 10%;
+    
+}
+.right{
+    float: left;
+    width: 50%; 
+}
+.Sketch-Title{
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: underline;
+    margin: 7.5%;
+}
+.Description{
+    padding: 0%;   
+
+}

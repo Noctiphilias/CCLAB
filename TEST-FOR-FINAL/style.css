@@ -1,0 +1,22 @@
+body{
+background-color: white;
+border: 10px;
+}
+.header{
+    font-size: 100;
+    text-align: center;
+}
+.divider{
+    background-color: aqua;
+    height: 500;
+}
+.box-1{
+    margin: 50px;
+    
+}
+.test-image{
+    height: 100px;
+    width: 100px;
+    position:fixed;
+    padding-left: 20px;
+}
