@@ -172,7 +172,6 @@ class trash {
 }
 
 function fishy(cx,cy){
-//circle
 cx = 0;
 cxspeed = 1;
 cy = 0;
