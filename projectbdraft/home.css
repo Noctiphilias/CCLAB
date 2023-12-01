@@ -1,0 +1,17 @@
+
+.header{
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+}
+
+.list{
+    border: 10px;
+    margin: 10px;
+    font-family:'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font: white;
+    align-items: center;
+    font-size: large;
+    text-align: center;
+}
