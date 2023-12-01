@@ -1,15 +1,14 @@
-star = [];
-let sand;
-let plant;
-fishie = []; //will change into a forloop
+star = []; //FOR STARS
+let sand; //FOR SAND
+let plant; //FOR FLORA
+fishie = []; //FOR FISH
 function setup() {
-  let canvas = createCanvas(400, 400);
+let canvas = createCanvas(400, 400);
   canvas.parent("p5-canvas");
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < 10; i++) { //starfish
     star[i] = new starfish();
-    sand = new sandy();
   }
-  for(i = 0; i< 15; i++){
+  for(i = 0; i< 15; i++){ //fish
     fishie[i] = new fish();
   
   }
@@ -17,25 +16,31 @@ function setup() {
 
 function draw() {
   background("#99baf0");
-  sand.display();
+    sand = new sandy();
+    sand.display();
+  //let angle = map(accelerationX, -1,1,-PI,PI);
+  //rotate(angle);
   for (let i = 0; i < star.length; i++) {
     star[i].star();
     star[i].update();
+    star[i].checkRotation();
   }
     for (let i = 0; i < fishie.length; i++) {
     fishie[i].display();
-    fishie[i].update();
+   // fishie[i].update();
   }
   plant = new flora();
   plant.display();
+
+
 }
 
 class starfish {
   constructor(x, y, radius1, radius2, npoints) {
     this.y = random(height);
     this.x = random(width);
-    this.yspeed = sin(this.x * 0.3);
-    this.xspeed = 5;
+    this.yspeed = 0.5*sin(this.x * 0.3);
+    this.xspeed = 0.5;
     this.npoints = 5;
     this.radius1 = 10;
     this.radius2 = 15;
@@ -54,6 +59,18 @@ class starfish {
     if (this.x < 0 || this.x > width) {
       this.x = -this.xspeed;
     }
+  }
+  checkRotation(){
+    //this.xspeed = constrain(this.xspeed,-1,1);
+    if((accelerationX) > 0){
+      this.xspeed = this.xspeed-0.1;
+    }
+    else if((pAccelerationX) < 0){
+            this.xspeed = this.xspeed+0.1;
+    }else{
+      this.xspeed = 0.5;
+    }
+    console.log(accelerationX-pAccelerationX);
   }
   display() {}
   star(x, y, radius1, radius2, npoints) {
@@ -114,39 +131,37 @@ class flora {
 }
 class fish {
   constructor(x){
-    this.x = 0;
+    this.cx = random(width);
     this.cxspeed = 1;
-    this.cy = 0;
-    this.cs = 40 //size
-    this.tx1 = 0;
-    this.tx2 = 5;
-    this.ty1 = 40;
-    this.ty2 = -10;
-    this.tz1 = 40;
-    this.tz2 = 20;
-
-
-
+    this.cy = random(height);
+    this.cs = random(15,30); //;
+    this.tx1 = this.cx;
+    this.tx2 = this.cy-this.cs*0.5;
+    this.ty1 = this.cx;
+    this.ty2 = this.cy+this.cs*0.5;
+    this.tz1 = this.cx-this.cs*0.8;
+    this.tz2 = this.cy;
   }
   update(x){
-    this.x = this.x + this.cxspeed;
+    this.cx = this.cx + this.cxspeed;
+    this.cy = this.cy + 1
     this.tx1 = this.tx1 + this.cxspeed;
     this.ty1 = this.ty1 + this.cxspeed;
     this.tz1 = this.tz1 + this.cxspeed;
     if(this.x < 0 || this.x > width){
-      this.cxspeed = -this.cxspeed;
     }
 
   }
  display(){
-   push()
+
    fill("orange")
 triangle(this.tx1,this.tx2,this.ty1, this.ty2, this.tz1, this.tz2);
-   circle(this.x,this.cy,this.cs)
-      fill("red")
-      circle(0,0,5)
+   
+   triangle(this.tz1+this.cs*0.5,this.tz2,this.cx-1.5*this.cs, this.tx2, this.cx-1.5*this.cs, this.ty2);
 
-   pop()
+   
+   circle(this.cx,this.cy,this.cs);
+   
  }
 
 }
@@ -154,4 +169,23 @@ class trash {
   display() {
     rect(random(width), random(height), 100);
   }
+}
+
+function fishy(cx,cy){
+//circle
+cx = 0;
+cxspeed = 1;
+cy = 0;
+cs = 40 //size
+//triangle
+    tx1 = 0;
+    tx2 = tx1 + 5;
+    ty1 = 40
+    ty2 = ty1 - 50;
+    tz1 = 40;
+    tz2 = tz1 - 20;
+  
+   fill("orange")
+triangle(tx1,tx2,ty1, ty2, tz1, tz2);
+   circle(cx,cy.cs)
 }
