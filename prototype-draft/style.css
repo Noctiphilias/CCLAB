@@ -6,7 +6,7 @@ text-align: center;
 }
 .header{
     text-align: center;
-    font-size: large;
+    font-size: 70px;
     font-weight: bold;
     text-decoration: underline;
 }
@@ -22,11 +22,8 @@ text-align: center;
 .flex-container{
     height: 50%;
     width: 50%;
-    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: flex-start;
-    align-items: flex-start;
 }
 
 .box{
@@ -34,22 +31,29 @@ text-align: center;
     width: 100px;
     border: 1px;
     border-style: solid;
-    padding: 10%;
-    margin: 10%;
     
 }
 .right{
-    float: left;
-    width: 50%; 
+    float: right;
+    width: 50%;
+    margin: 0%; 
+    height: 0;
 }
 .Sketch-Title{
     text-align: center;
     font-size: large;
     font-weight: bold;
     text-decoration: underline;
-    margin: 7.5%;
 }
-.Description{
-    padding: 0%;   
+
+.description{
+    font-size: large;
+    font-family:'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+
+}
+.goodboy{
+    margin: 0%;
+    align-items: center;
+    padding: 0%;
 
 }

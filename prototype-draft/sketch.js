@@ -3,12 +3,13 @@ let sand; //FOR SAND
 let plant; //FOR FLORA
 fishie = []; //FOR FISH
 function setup() {
-let canvas = createCanvas(400, 400);
+  let canvas = createCanvas(400, 400);
   canvas.parent("p5-canvas");
+
   for (i = 0; i < 10; i++) { //starfish
     star[i] = new starfish();
   }
-  for(i = 0; i< 15; i++){ //fish
+  for(i = 0; i< 10; i++){ //fish
     fishie[i] = new fish();
   
   }
@@ -27,7 +28,8 @@ function draw() {
   }
     for (let i = 0; i < fishie.length; i++) {
     fishie[i].display();
-   // fishie[i].update();
+    fishie[i].update();
+    fishie[i].changedirection();
   }
   plant = new flora();
   plant.display();
@@ -52,25 +54,49 @@ class starfish {
   }
   update(x, y) {
     this.y = this.y + this.yspeed;
-    if (this.y < 0 || this.y > 400) {
-      this.yspeed = -this.yspeed;
+    if (this.y < 0 || this.y > height) {
+      this.y = -this.yspeed;
     }
     this.x = this.x + this.xspeed;
-    if (this.x < 0 || this.x > width) {
-      this.x = -this.xspeed;
+    if (this.x < 0 + this.radius2) {
+      this.x = 0 + this.radius2;
     }
+    if (this.x > width - this.radius2) {
+      this.x = width-this.radius2;
+      this.xspeed = -this.xspeed;
+    }
+        if (this.y > height - this.radius2) {
+      this.y = height-this.radius2;
+      this.yspeed = -this.yspeed;
+    }
+    
   }
   checkRotation(){
     //this.xspeed = constrain(this.xspeed,-1,1);
-    if((accelerationX) > 0){
-      this.xspeed = this.xspeed-0.1;
+    if((rotationY) > 10){
+      this.xspeed = this.xspeed+0.1;
     }
-    else if((pAccelerationX) < 0){
-            this.xspeed = this.xspeed+0.1;
+    else if((rotationY) < -10){
+            this.xspeed = this.xspeed-0.1;
     }else{
       this.xspeed = 0.5;
+          if((rotationZ) > 10){
+      this.xspeed = this.xspeed+0.1;
     }
-    console.log(accelerationX-pAccelerationX);
+    else if((rotationZ) < 10){
+            this.xspeed = this.yspeed-0.1;
+    }else{
+      this.yspeed = 0.5;}
+    }
+    //     if((accelerationY) > 0){
+    //   this.yspeed = this.yspeed-0.1;
+    // }
+    // else if((pAccelerationY) < 0){
+    //         this.yspeed = this.yspeed+0.1;
+    // }else{
+    //   this.yspeed = 0.5;
+    // }
+    console.log(rotationX);
   }
   display() {}
   star(x, y, radius1, radius2, npoints) {
@@ -130,39 +156,40 @@ class flora {
   }
 }
 class fish {
-  constructor(x){
-    this.cx = random(width);
+  constructor(){
+    this.cx = random(30, width-30);
     this.cxspeed = 1;
-    this.cy = random(height);
+    this.cy = random(100, height-100);
     this.cs = random(15,30); //;
-    this.tx1 = this.cx;
-    this.tx2 = this.cy-this.cs*0.5;
-    this.ty1 = this.cx;
-    this.ty2 = this.cy+this.cs*0.5;
-    this.tz1 = this.cx-this.cs*0.8;
-    this.tz2 = this.cy;
+    this.r = random(255)
+    this.g = random(255)
+    this.b = random(255)
+    this.freq = random(0.01, 0.05);
+    this.time = int(random(200));
+    this.flip = 1;
   }
-  update(x){
+  update(){
     this.cx = this.cx + this.cxspeed;
-    this.cy = this.cy + 1
-    this.tx1 = this.tx1 + this.cxspeed;
-    this.ty1 = this.ty1 + this.cxspeed;
-    this.tz1 = this.tz1 + this.cxspeed;
-    if(this.x < 0 || this.x > width){
-    }
-
+    this.cy = this.cy + 0.7*sin(frameCount*this.freq);
+   
   }
  display(){
-
-   fill("orange")
-triangle(this.tx1,this.tx2,this.ty1, this.ty2, this.tz1, this.tz2);
-   
-   triangle(this.tz1+this.cs*0.5,this.tz2,this.cx-1.5*this.cs, this.tx2, this.cx-1.5*this.cs, this.ty2);
-
-   
-   circle(this.cx,this.cy,this.cs);
+   push();
+   translate(this.cx,this.cy);
+   scale(this.flip,1);
+   fill(this.r, this.g, this.b)
+triangle(-this.cs*0.1,-this.cs*0.5,-this.cs*0.1, this.cs*0.5, -this.cs*0.8, 0);
+   triangle(-this.cs*0.8, 0,-this.cs*1.5,-this.cs*0.5, -this.cs*1.5, this.cs*0.5);
+   circle(0,0,this.cs);
+   pop();
    
  }
+  changedirection( ){
+    if(frameCount%300 == this.time || this.cx > width-this.cs || this.cx < 0 + this.cs){
+      this.cxspeed = -this.cxspeed;
+      this.flip = -this.flip;
+    }
+  }
 
 }
 class trash {
@@ -172,6 +199,7 @@ class trash {
 }
 
 function fishy(cx,cy){
+//circle
 cx = 0;
 cxspeed = 1;
 cy = 0;
